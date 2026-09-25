@@ -1,0 +1,58 @@
+---
+// Abstract node-and-line motif echoing the reference design's circuit-board
+// decoration, reused here as a "coordinated response network" visual.
+// Deliberately dense/intricate (many nodes and traces) so it still reads as
+// detailed at the compact size it's actually rendered at.
+interface Props {
+  class?: string;
+  variant?: 'yellow' | 'blue' | 'white';
+}
+const { class: className = '', variant = 'yellow' } = Astro.props;
+
+const stroke = variant === 'white' ? '#ffffff' : '#16171a';
+const dot = variant === 'blue' ? '#ffd400' : variant === 'white' ? '#ffffff' : '#16171a';
+---
+
+<svg
+  class={className}
+  viewBox="0 0 220 220"
+  fill="none"
+  aria-hidden="true"
+  focusable="false"
+>
+  <g stroke={stroke} stroke-width="2" stroke-linecap="round" opacity="0.9">
+    <path d="M10 10 H90 V50 H50 V90 H130 V50 H170 V10 H210"></path>
+    <path d="M10 90 V170 H90 V130 H170 V210"></path>
+    <path d="M130 90 V170 H210 V170"></path>
+    <path d="M50 130 V210"></path>
+    <path d="M170 90 V50"></path>
+    <path d="M90 170 V210"></path>
+    <path d="M130 50 V10"></path>
+    <path d="M210 10 V50"></path>
+  </g>
+  <g fill={dot}>
+    <circle cx="10" cy="10" r="6"></circle>
+    <circle cx="90" cy="10" r="5"></circle>
+    <circle cx="130" cy="10" r="5"></circle>
+    <circle cx="210" cy="10" r="7"></circle>
+    <circle cx="90" cy="50" r="5"></circle>
+    <circle cx="130" cy="50" r="8"></circle>
+    <circle cx="170" cy="50" r="5"></circle>
+    <circle cx="50" cy="50" r="5"></circle>
+    <circle cx="50" cy="90" r="5"></circle>
+    <circle cx="130" cy="90" r="9"></circle>
+    <circle cx="170" cy="90" r="5"></circle>
+    <circle cx="10" cy="90" r="6"></circle>
+    <circle cx="10" cy="170" r="5"></circle>
+    <circle cx="90" cy="170" r="8"></circle>
+    <circle cx="90" cy="130" r="5"></circle>
+    <circle cx="170" cy="130" r="5"></circle>
+    <circle cx="170" cy="170" r="5"></circle>
+    <circle cx="170" cy="210" r="7"></circle>
+    <circle cx="210" cy="170" r="5"></circle>
+    <circle cx="50" cy="130" r="5"></circle>
+    <circle cx="50" cy="210" r="7"></circle>
+    <rect x="104" y="104" width="12" height="12" rx="2" transform="rotate(45 110 110)"></rect>
+    <rect x="144" y="24" width="9" height="9" rx="2" transform="rotate(45 148.5 28.5)"></rect>
+  </g>
+</svg>

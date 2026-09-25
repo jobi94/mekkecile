@@ -1,0 +1,68 @@
+---
+import '../styles/global.css';
+import { site } from '../site.config';
+import { buildJsonLd } from '../lib/jsonld';
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string; // e.g. "/cookies" — defaults to "/"
+  noindex?: boolean;
+  includeOrgJsonLd?: boolean;
+}
+
+const {
+  title,
+  description,
+  path = '/',
+  noindex = false,
+  includeOrgJsonLd = true,
+} = Astro.props;
+
+const canonical = `${site.domain}${path === '/' ? '/' : path}`;
+const jsonLd = includeOrgJsonLd ? buildJsonLd() : null;
+---
+
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content={noindex ? 'noindex,follow' : 'index,follow,max-image-preview:large'} />
+    <meta name="theme-color" content={site.brandColor} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="cs_CZ" />
+    <meta property="og:site_name" content={site.companyName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {site.ogImage && <meta property="og:image" content={`${site.domain}${site.ogImage}`} />}
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    {site.ogImageAlt && <meta property="og:image:alt" content={site.ogImageAlt} />}
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    {site.gscToken && !site.gscToken.startsWith('{{') && (
+      <meta name="google-site-verification" content={site.gscToken} />
+    )}
+    {site.seznamWmtToken && !site.seznamWmtToken.startsWith('{{') && (
+      <meta name="seznam-wmt" content={site.seznamWmtToken} />
+    )}
+
+    {jsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
+  </head>
+  <body class="font-body text-ink antialiased">
+    <a href="#hlavni-obsah" class="skip-link">Přeskočit na hlavní obsah</a>
+    <slot />
+  </body>
+</html>

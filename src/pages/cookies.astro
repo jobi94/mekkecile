@@ -1,0 +1,34 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { site } from '../site.config';
+---
+
+<LegalLayout
+  title={`Cookies | ${site.companyName}`}
+  description="Informace o používání cookies a podobných technologií na tomto webu."
+  path="/cookies"
+  heading="Cookies"
+>
+  <p>
+    Tento web je ve výchozím nastavení navržen bez nutnosti souhlasu s cookies: k měření
+    návštěvnosti používáme (nebo plánujeme používat) cookieless analytické řešení, které
+    neukládá do prohlížeče žádné soubory cookie a nesbírá osobní údaje.
+  </p>
+
+  <h2>Nezbytné technologie</h2>
+  <p>
+    Web nepoužívá žádné nezbytné cookies pro svůj běžný provoz. Formulář poptávky odesílá data
+    přímo na server při odeslání — bez použití cookies.
+  </p>
+
+  <h2>Pokud v budoucnu doplníme cookies vyžadující souhlas</h2>
+  <p>
+    Pokud správce v budoucnu nasadí analytiku nebo nástroj, který ukládá cookies vyžadující
+    souhlas (např. Google Analytics), doplní na web lištu se souhlasem s rovnocennými tlačítky
+    „Přijmout vše“ a „Odmítnout vše“ a žádný takový nástroj se nespustí dřív, než návštěvník
+    udělí souhlas.
+  </p>
+
+  <h2>Kontakt</h2>
+  <p>Dotazy ohledně cookies směřujte na {site.email}.</p>
+</LegalLayout>

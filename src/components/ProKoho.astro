@@ -1,0 +1,72 @@
+---
+import { audienceTabs } from '../data/pro-koho';
+import Icon from './Icon.astro';
+---
+
+<section id="pro-koho" class="bg-surface-alt py-16 sm:py-24">
+  <div class="container-page">
+    <div class="max-w-2xl">
+      <p class="eyebrow">Pro koho</p>
+      <h2 class="mt-3 font-display text-3xl font-800 sm:text-4xl">Komu program pomůže</h2>
+    </div>
+
+    <div class="prokoho-tabs mt-10">
+      <div role="radiogroup" aria-label="Vyberte typ organizace" class="flex flex-wrap gap-3">
+        {audienceTabs.map((tab, i) => (
+          <div>
+            <input
+              type="radio"
+              name="pro-koho"
+              id={`tab-${tab.id}`}
+              checked={i === 0}
+              class="peer sr-only"
+            />
+            <label
+              for={`tab-${tab.id}`}
+              class="inline-flex cursor-pointer items-center rounded-full border-2 border-ink px-5 py-2.5 text-sm font-bold transition-colors peer-checked:bg-ink peer-checked:text-white peer-focus-visible:outline peer-focus-visible:outline-3 peer-focus-visible:outline-brand-blue"
+            >
+              {tab.label}
+            </label>
+          </div>
+        ))}
+      </div>
+
+      {audienceTabs.map((tab) => (
+        <div id={`panel-${tab.id}`} class="tab-panel mt-8 grid gap-8 rounded-card bg-white p-6 sm:p-8 md:grid-cols-2">
+          <p class="text-base leading-relaxed text-muted">{tab.text}</p>
+          <ul class="flex flex-col gap-3">
+            {tab.points.map((point) => (
+              <li class="flex items-start gap-3 text-sm font-medium">
+                <Icon name="check" class="mt-0.5 h-5 w-5 flex-none text-brand-blue" />
+                {point}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <a href="#prevence" class="mt-6 inline-block text-sm font-bold text-brand-blue underline">
+      Jak předcházet incidentům →
+    </a>
+  </div>
+</section>
+
+<style>
+  .tab-panel {
+    display: none;
+  }
+  /* Show the panel matching the checked radio, pure CSS (no JS required).
+     :has() lets the radio and its panel live in different branches of the tree. */
+  .prokoho-tabs:has(#tab-skoly:checked) #panel-skoly,
+  .prokoho-tabs:has(#tab-zrizovatele:checked) #panel-zrizovatele,
+  .prokoho-tabs:has(#tab-dalsi-instituce:checked) #panel-dalsi-instituce {
+    display: grid;
+  }
+  /* No :has() support: show every panel so content stays reachable. */
+  @supports not selector(:has(a)) {
+    .tab-panel {
+      display: grid;
+    }
+  }
+</style>

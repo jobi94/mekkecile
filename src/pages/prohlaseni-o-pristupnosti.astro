@@ -1,0 +1,41 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { site } from '../site.config';
+---
+
+<LegalLayout
+  title={`Prohlášení o přístupnosti | ${site.companyName}`}
+  description="Prohlášení o přístupnosti webových stránek podle zákona č. 424/2023 Sb."
+  path="/prohlaseni-o-pristupnosti"
+  heading="Prohlášení o přístupnosti"
+>
+  <p>
+    {site.legalName} se zavazuje ke zpřístupnění svých webových stránek v souladu se zákonem
+    č. 424/2023 Sb. a v souladu se standardem WCAG 2.1 na úrovni AA, s cílem přiblížit se
+    úrovni WCAG 2.2 AA.
+  </p>
+
+  <h2>Stav souladu</h2>
+  <p>
+    Tyto webové stránky jsou částečně v souladu s výše uvedeným standardem, a to z důvodů
+    uvedených níže. Web byl navržen s důrazem na sémantické značení, klávesovou ovladatelnost,
+    kontrast textu a popisky formulářových polí.
+  </p>
+
+  <h2>Nepřístupný obsah</h2>
+  <ul>
+    <li>{'{{ACCESSIBILITY_KNOWN_ISSUES}}'} (doplňte po provedení auditu, pokud budou zjištěny nedostatky).</li>
+  </ul>
+
+  <h2>Vypracování prohlášení</h2>
+  <p>
+    Toto prohlášení bylo vypracováno dne {'{{ACCESSIBILITY_STATEMENT_DATE}}'} a naposledy
+    přezkoumáno dne {'{{ACCESSIBILITY_STATEMENT_DATE}}'}.
+  </p>
+
+  <h2>Zpětná vazba a kontaktní údaje</h2>
+  <p>
+    Narazili jste na problém s přístupností? Napište nám na {site.email} nebo zavolejte na
+    {site.phone}. Budeme se snažit odpovědět v přiměřené lhůtě.
+  </p>
+</LegalLayout>

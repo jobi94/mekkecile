@@ -1,0 +1,234 @@
+@import 'tailwindcss';
+
+/* Self-hosted, subset to latin + latin-ext (covers Czech diacritics). */
+@import '@fontsource-variable/inter/wght.css';
+@import '@fontsource/manrope/latin-ext-700.css';
+@import '@fontsource/manrope/latin-ext-800.css';
+
+@theme {
+  /* Design tokens extracted from the visual reference:
+     bright yellow hero/CTA, near-black ink, vivid blue accent sections,
+     light-gray alternating panels, bold geometric display type. */
+  --color-brand-yellow: #ffd400;
+  --color-brand-yellow-dark: #e6bf00;
+  --color-ink: #16171a;
+  --color-ink-soft: #3a3b3f;
+  --color-brand-blue: #3d3df5;
+  --color-brand-blue-dark: #2f2fd1;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f0f0f0;
+  --color-border-subtle: #e2e2e4;
+  --color-muted: #5c5d61;
+
+  --font-display: 'Manrope Variable', 'Manrope', system-ui, sans-serif;
+  --font-body: 'Inter Variable', 'Inter', system-ui, sans-serif;
+
+  --radius-card: 1rem;
+  --radius-control: 0.625rem;
+
+  --container-page: 72rem;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-body);
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    color: var(--color-ink);
+    background: var(--color-surface);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+
+  /* Thin yellow accent under every main (h2) section heading, site-wide. */
+  h2::after {
+    content: '';
+    display: block;
+    width: 3rem;
+    height: 4px;
+    margin-top: 0.85rem;
+    border-radius: 9999px;
+    background: var(--color-brand-yellow);
+  }
+
+  /* In sections whose heading block is centered, center the accent under it too. */
+  .text-center h2::after {
+    margin-inline: auto;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-brand-blue);
+    outline-offset: 2px;
+  }
+
+  a {
+    text-underline-offset: 0.15em;
+  }
+}
+
+@layer components {
+  .container-page {
+    max-width: var(--container-page);
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-control);
+    padding: 0.85rem 1.5rem;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+    min-height: 44px;
+  }
+
+  .btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .btn-primary {
+    background: var(--color-ink);
+    color: var(--color-surface);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-ink-soft);
+  }
+
+  .btn-accent {
+    background: var(--color-brand-yellow);
+    color: var(--color-ink);
+  }
+
+  .btn-accent:hover {
+    background: var(--color-brand-yellow-dark);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-ink);
+    border: 2px solid var(--color-ink);
+  }
+
+  .btn-ghost:hover {
+    background: var(--color-ink);
+    color: var(--color-surface);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--color-surface);
+    border: 2px solid var(--color-surface);
+  }
+
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -3rem;
+    background: var(--color-ink);
+    color: var(--color-surface);
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-control);
+    z-index: 100;
+    transition: top 0.15s ease;
+  }
+
+  .skip-link:focus {
+    top: 1rem;
+  }
+
+  /* Shared by every horizontal carousel (Programy, Dokumentace, …) —
+     kept global because Astro scopes per-component <style> blocks, which
+     would otherwise break reuse across components. */
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .btn-icon {
+    display: inline-flex;
+    height: 2.5rem;
+    width: 2.5rem;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    border: 2px solid var(--color-ink);
+    color: var(--color-ink);
+  }
+  .btn-icon:hover:not(:disabled) {
+    background: var(--color-ink);
+    color: var(--color-surface);
+  }
+  .btn-icon:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+
+  .carousel-dot[aria-current='true'] {
+    background: var(--color-brand-blue);
+    width: 1.5rem;
+  }
+
+  .eyebrow {
+    font-family: var(--font-display);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.8rem;
+    color: var(--color-brand-blue);
+  }
+
+}
+
+@layer utilities {
+  /* Generic "show N, expand for the rest" pattern (FAQ, security layers,
+     qualification checklist, …). Only ever sets display:none — when the
+     toggle is checked the rule simply stops matching, so each item falls
+     back to whatever display its own classes already give it (flex, block,
+     details' default…) instead of us having to know/override it.
+     Lives in the utilities layer so it can actually beat classes like
+     `.flex` on the same element — Tailwind v4 gives utilities priority
+     over components regardless of selector specificity. */
+  .expand-wrap:not(:has(.expand-toggle:checked)) .expand-extra {
+    display: none;
+  }
+  .show-less-text {
+    display: none;
+  }
+  .expand-wrap:has(.expand-toggle:checked) .show-more-text {
+    display: none;
+  }
+  .expand-wrap:has(.expand-toggle:checked) .show-less-text {
+    display: inline;
+  }
+}

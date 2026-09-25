@@ -1,0 +1,66 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { site } from '../site.config';
+---
+
+<LegalLayout
+  title={`Zásady zpracování osobních údajů | ${site.companyName}`}
+  description="Informace o zpracování osobních údajů návštěvníků webu a osob, které odešlou poptávku."
+  path="/zasady-ochrany-osobnich-udaju"
+  heading="Zásady zpracování osobních údajů"
+>
+  <p>
+    <strong>
+      Toto je návrh textu. Před zveřejněním jej nechte zkontrolovat právníkem — text nenahrazuje
+      právní poradenství a musí odpovídat skutečnému zpracování údajů u {site.legalName}.
+    </strong>
+  </p>
+
+  <h2>Správce osobních údajů</h2>
+  <p>
+    {site.legalName}, IČO: {site.ico}, se sídlem {site.addressStreet}, {site.addressZip} {site.addressCity}
+    (dále jen „správce“). Kontakt: {site.email}, {site.phone}.
+  </p>
+
+  <h2>Jaké údaje zpracováváme a proč</h2>
+  <ul>
+    <li>Údaje z poptávkového formuláře (typ instituce, kontaktní osoba, e-mail, telefon, obsah zprávy) — abychom mohli poptávku vyřídit a připravit nabídku.</li>
+    <li>Fakturační a smluvní údaje klientů — k plnění smlouvy a zákonným povinnostem (účetnictví, daně).</li>
+    <li>Provozní logy webového serveru — k zajištění bezpečnosti a chodu webu.</li>
+  </ul>
+
+  <h2>Právní základ zpracování</h2>
+  <ul>
+    <li>Jednání o uzavření smlouvy a plnění smlouvy (čl. 6 odst. 1 písm. b) GDPR) — vyřízení poptávky a poskytnutí služeb.</li>
+    <li>Plnění právních povinností (čl. 6 odst. 1 písm. c) GDPR) — např. účetní a daňové předpisy.</li>
+    <li>Souhlas (čl. 6 odst. 1 písm. a) GDPR) — pouze pokud jste zaškrtli souhlas se zasíláním novinek; souhlas lze kdykoli odvolat.</li>
+  </ul>
+
+  <h2>Doba uchování</h2>
+  <p>
+    Údaje z nevyřízené nebo neuzavřené poptávky uchováváme po dobu {'{{RETENTION_INQUIRY}}'}.
+    Smluvní a účetní doklady po dobu vyžadovanou právními předpisy (typicky 10 let).
+  </p>
+
+  <h2>Příjemci údajů</h2>
+  <p>
+    Údaje mohou být zpřístupněny poskytovateli hostingu, e-mailové komunikace a dalším
+    zpracovatelům, se kterými máme uzavřenu zpracovatelskou smlouvu podle čl. 28 GDPR:
+    {'{{PROCESSORS_LIST}}'}.
+  </p>
+
+  <h2>Vaše práva</h2>
+  <ul>
+    <li>Právo na přístup k osobním údajům.</li>
+    <li>Právo na opravu nebo výmaz.</li>
+    <li>Právo na omezení zpracování.</li>
+    <li>Právo vznést námitku.</li>
+    <li>Právo na přenositelnost údajů.</li>
+    <li>Právo podat stížnost u Úřadu pro ochranu osobních údajů (uoou.cz).</li>
+  </ul>
+
+  <h2>Kontakt</h2>
+  <p>
+    Svá práva můžete uplatnit na {site.email} nebo písemně na adrese sídla správce.
+  </p>
+</LegalLayout>

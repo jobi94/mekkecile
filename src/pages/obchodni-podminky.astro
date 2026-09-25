@@ -1,0 +1,43 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { site } from '../site.config';
+---
+
+<LegalLayout
+  title={`Obchodní podmínky | ${site.companyName}`}
+  description="Obchodní podmínky pro objednávku školení a souvisejících služeb."
+  path="/obchodni-podminky"
+  heading="Obchodní podmínky"
+>
+  <p>
+    <strong>
+      Toto je návrh textu určený k doplnění a právní kontrole před zveřejněním — nenahrazuje
+      konzultaci s právníkem.
+    </strong>
+  </p>
+
+  <h2>Objednávka a smlouva</h2>
+  <p>
+    Rozsah, termín a cena služby se sjednávají individuálně na základě poptávky a úvodní
+    konzultace a jsou potvrzeny písemnou smlouvou nebo objednávkou.
+  </p>
+
+  <h2>Zrušení a přesun termínu</h2>
+  <p>{'{{OBCHODNI_PODMINKY_STORNO}}'}</p>
+
+  <h2>Součinnost objednatele</h2>
+  <p>
+    Objednatel zajistí přístup do budovy, potřebné prostory a účast dohodnutého počtu
+    zaměstnanců. U praktického nácviku objednatel předem informuje zaměstnance obecným
+    způsobem, že proběhne nácvik bez účasti žáků.
+  </p>
+
+  <h2>Důvěrnost</h2>
+  <p>
+    Obě strany se zavazují zachovávat mlčenlivost o bezpečnostní dokumentaci, postupech
+    a zjištěních konkrétní školy nebo instituce.
+  </p>
+
+  <h2>Kontakt</h2>
+  <p>{site.legalName}, {site.email}, {site.phone}.</p>
+</LegalLayout>

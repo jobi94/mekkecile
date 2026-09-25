@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import ProKoho from '../components/ProKoho.astro';
+import Programy from '../components/Programy.astro';
+import Postup from '../components/Postup.astro';
+import Prevence from '../components/Prevence.astro';
+import Dokumentace from '../components/Dokumentace.astro';
+import Msmt from '../components/Msmt.astro';
+import Tym from '../components/Tym.astro';
+import Reference from '../components/Reference.astro';
+import Financovani from '../components/Financovani.astro';
+import Faq from '../components/Faq.astro';
+import Poptavka from '../components/Poptavka.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="Školení ochrany měkkých cílů pro školy | {{COMPANY_NAME}}"
+  description="Školení, prevence a nácviky pro školy a instituce: aktivní útočník, lockdown, evakuace, bezpečnostní a koordinační plán podle standardu MŠMT."
+>
+  <Header />
+  <main id="hlavni-obsah">
+    <Hero />
+    <ProKoho />
+    <Programy />
+    <Postup />
+    <Prevence />
+    <Dokumentace />
+    <Msmt />
+    <Tym />
+    <Reference />
+    <Financovani />
+    <Faq />
+    <Poptavka />
+  </main>
+  <Footer />
+</BaseLayout>

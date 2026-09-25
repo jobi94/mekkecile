@@ -1,0 +1,57 @@
+---
+import { site } from '../site.config';
+import { navLinks } from '../data/nav';
+import Icon from './Icon.astro';
+---
+
+<header class="sticky top-0 z-50 border-b border-border-subtle bg-white/95 backdrop-blur">
+  <div class="container-page flex h-16 items-center gap-4 sm:h-20">
+    <div class="flex flex-1 items-center">
+      <a href="#hlavni-obsah" class="font-display text-lg font-800 tracking-tight sm:text-xl">
+        {site.companyName}
+      </a>
+    </div>
+
+    <nav aria-label="Hlavní navigace" class="hidden flex-none lg:block">
+      <ul class="flex items-center gap-7 text-sm font-semibold">
+        {navLinks.map((link) => (
+          <li>
+            <a href={link.href} class="transition-colors hover:text-brand-blue">
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="flex flex-1 items-center justify-end gap-4">
+      <div class="hidden items-center gap-5 sm:flex">
+        <a href="#poptavka" class="btn btn-accent">Poptat školení</a>
+      </div>
+
+      <details class="relative lg:hidden">
+        <summary
+          class="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-control border border-border-subtle [&::-webkit-details-marker]:hidden"
+          aria-label="Otevřít menu"
+        >
+          <Icon name="menu" class="h-6 w-6" />
+        </summary>
+        <div class="absolute right-0 top-14 w-72 rounded-card border border-border-subtle bg-white p-5 shadow-xl">
+          <nav aria-label="Mobilní navigace">
+            <ul class="flex flex-col gap-4 text-base font-semibold">
+              {navLinks.map((link) => (
+                <li><a href={link.href}>{link.label}</a></li>
+              ))}
+            </ul>
+          </nav>
+          <hr class="my-4 border-border-subtle" />
+          <a href={`tel:${site.phone.replace(/\s+/g, '')}`} class="flex items-center gap-2 text-sm font-bold">
+            <Icon name="phone" class="h-4 w-4 text-brand-blue" />
+            {site.phone}
+          </a>
+          <a href="#poptavka" class="btn btn-accent mt-4 w-full">Poptat školení</a>
+        </div>
+      </details>
+    </div>
+  </div>
+</header>

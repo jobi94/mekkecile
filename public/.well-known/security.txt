@@ -1,0 +1,3 @@
+Contact: mailto:{{EMAIL}}
+Expires: {{SECURITY_TXT_EXPIRES}}
+Preferred-Languages: cs, en

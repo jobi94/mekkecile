@@ -1,0 +1,99 @@
+---
+import { steps, frequencyTable } from '../data/postup';
+
+const stepsVisibleCount = 6;
+const freqVisibleCount = 4;
+---
+
+<section id="postup" class="bg-brand-blue py-14 text-white sm:py-20">
+  <div class="container-page">
+    <div class="max-w-2xl">
+      <p class="eyebrow text-brand-yellow">Jak to probíhá</p>
+      <h2 class="mt-3 font-display text-3xl font-800 sm:text-4xl">Devět kroků od poptávky k udržitelné bezpečnosti</h2>
+    </div>
+
+    <div class="expand-wrap mt-10">
+      <ol class="grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+        {steps.map((s, i) => (
+          <li class={i >= stepsVisibleCount ? 'expand-extra' : ''}>
+            <p class="font-display text-3xl font-800 text-brand-yellow">{s.n}</p>
+            <hr class="my-3 border-white/30" />
+            <h3 class="text-base font-bold">{s.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-white/80">{s.text}</p>
+          </li>
+        ))}
+      </ol>
+
+      {steps.length > stepsVisibleCount && (
+        <>
+          <input type="checkbox" id="steps-toggle" class="expand-toggle sr-only" />
+          <label
+            for="steps-toggle"
+            class="mt-6 inline-flex cursor-pointer items-center gap-2 text-sm font-bold text-white underline"
+          >
+            <span class="show-more-text">Zobrazit všechny kroky ({steps.length})</span>
+            <span class="show-less-text">Zobrazit méně</span>
+          </label>
+        </>
+      )}
+    </div>
+
+    <div class="expand-wrap">
+      <!-- Phones: stacked cards, nothing to scroll or truncate. -->
+      <div class="mt-10 sm:hidden">
+        <p class="mb-3 text-xs font-bold uppercase tracking-wide text-white">
+          Doporučené frekvence opakování (MŠMT 2024)
+        </p>
+        <ul class="flex flex-col gap-3">
+          {frequencyTable.map((row, i) => (
+            <li class={`rounded-card bg-white/10 p-4 ${i >= freqVisibleCount ? 'expand-extra' : ''}`}>
+              <p class="text-sm font-bold">{row.activity}</p>
+              <p class="mt-1 text-sm text-white">{row.frequency}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Tablet and up: real table, room enough that it never needs to scroll. -->
+      <div
+        class="mt-10 hidden overflow-x-auto rounded-card bg-white/10 p-2 sm:block"
+        tabindex="0"
+        role="region"
+        aria-label="Tabulka doporučených frekvencí opakování"
+      >
+        <table class="w-full border-collapse text-left text-sm">
+          <caption class="mb-3 px-3 pt-2 text-left text-xs font-bold uppercase tracking-wide text-white">
+            Doporučené frekvence opakování (MŠMT 2024)
+          </caption>
+          <thead>
+            <tr class="border-b border-white/20 text-xs font-bold uppercase tracking-wide text-white">
+              <th scope="col" class="px-3 py-3 font-bold">Činnost</th>
+              <th scope="col" class="px-3 py-3 font-bold">Frekvence</th>
+            </tr>
+          </thead>
+          <tbody>
+            {frequencyTable.map((row, i) => (
+              <tr class={`border-b border-white/10 last:border-0 ${i >= freqVisibleCount ? 'expand-extra' : ''}`}>
+                <td class="px-3 py-3 font-medium">{row.activity}</td>
+                <td class="px-3 py-3 text-white">{row.frequency}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {frequencyTable.length > freqVisibleCount && (
+        <>
+          <input type="checkbox" id="freq-toggle" class="expand-toggle sr-only" />
+          <label
+            for="freq-toggle"
+            class="mt-4 inline-flex cursor-pointer items-center gap-2 text-sm font-bold text-white underline"
+          >
+            <span class="show-more-text">Zobrazit všechny frekvence ({frequencyTable.length})</span>
+            <span class="show-less-text">Zobrazit méně</span>
+          </label>
+        </>
+      )}
+    </div>
+  </div>
+</section>

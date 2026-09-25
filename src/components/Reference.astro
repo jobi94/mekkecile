@@ -1,0 +1,25 @@
+---
+import { testimonials } from '../data/reference';
+---
+
+{testimonials.length > 0 && (
+  <section id="reference" class="bg-surface-alt py-16 sm:py-24">
+    <div class="container-page">
+      <div class="max-w-2xl">
+        <p class="eyebrow">Reference</p>
+        <h2 class="mt-3 font-display text-3xl font-800 sm:text-4xl">Zkušenosti škol a institucí</h2>
+      </div>
+
+      <ul class="mt-12 flex flex-col divide-y divide-border-subtle">
+        {testimonials.map((t) => (
+          <li class="py-6">
+            <p class="text-lg leading-relaxed">&ldquo;{t.quote}&rdquo;</p>
+            <p class="mt-3 text-sm font-bold">
+              {t.author}<span class="font-normal text-muted"> — {t.institution}</span>
+            </p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}

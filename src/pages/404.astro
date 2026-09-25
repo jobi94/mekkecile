@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../site.config';
+---
+
+<BaseLayout
+  title={`Stránka nenalezena | ${site.companyName}`}
+  description="Požadovaná stránka nebyla nalezena."
+  path="/404"
+  noindex={true}
+  includeOrgJsonLd={false}
+>
+  <Header />
+  <main id="hlavni-obsah" class="container-page py-24 text-center">
+    <p class="font-display text-6xl font-800 text-brand-blue">404</p>
+    <h1 class="mt-4 font-display text-3xl font-800 sm:text-4xl">Stránka nenalezena</h1>
+    <p class="mt-4 text-base text-muted">
+      Stránka, kterou hledáte, neexistuje nebo byla přesunuta.
+    </p>
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <a href="/#skoleni" class="btn btn-primary">Zobrazit programy</a>
+      <a href="/#poptavka" class="btn btn-ghost">Odeslat poptávku</a>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

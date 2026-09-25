@@ -1,0 +1,55 @@
+---
+import { site } from '../site.config';
+import Icon from './Icon.astro';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-ink py-14 text-white/85">
+  <div class="container-page grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+    <div>
+      <p class="font-display text-lg font-800 text-white">{site.companyName}</p>
+      <p class="mt-3 text-sm">{site.legalName}</p>
+      <p class="mt-1 text-sm">IČO: {site.ico}{site.dic && site.dic !== '{{DIC}}' ? ` · DIČ: ${site.dic}` : ''}</p>
+      <p class="mt-1 text-sm">{site.addressStreet}, {site.addressZip} {site.addressCity}</p>
+    </div>
+
+    <div>
+      <p class="text-sm font-bold uppercase tracking-wide text-white/60">Kontakt</p>
+      <a href={`tel:${site.phone.replace(/\s+/g, '')}`} class="mt-3 flex items-center gap-2 text-sm font-semibold">
+        <Icon name="phone" class="h-4 w-4 text-brand-yellow" /> {site.phone}
+      </a>
+      <a href={`mailto:${site.email}`} class="mt-2 block text-sm font-semibold">{site.email}</a>
+      <p class="mt-2 text-sm">Působíme: {site.regionsServed}</p>
+    </div>
+
+    <div>
+      <p class="text-sm font-bold uppercase tracking-wide text-white/60">Odkazy</p>
+      <ul class="mt-3 flex flex-col gap-2 text-sm">
+        <li><a href="#skoleni">Programy</a></li>
+        <li><a href="#prevence">Prevence</a></li>
+        <li><a href="#msmt">Soulad s MŠMT</a></li>
+        <li><a href="#faq">Časté dotazy</a></li>
+        <li><a href="#poptavka">Poptávka</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="text-sm font-bold uppercase tracking-wide text-white/60">Právní informace</p>
+      <ul class="mt-3 flex flex-col gap-2 text-sm">
+        <li><a href="/zasady-ochrany-osobnich-udaju">Zásady zpracování osobních údajů</a></li>
+        <li><a href="/cookies">Cookies</a></li>
+        <li><a href="/prohlaseni-o-pristupnosti">Prohlášení o přístupnosti</a></li>
+        <li><a href="/obchodni-podminky">Obchodní podmínky</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container-page mt-10 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between">
+    <p class="flex items-center gap-2 font-semibold text-white/80">
+      <Icon name="siren" class="h-4 w-4 text-brand-yellow" />
+      V akutním ohrožení volejte 158 (Policie ČR) nebo 112.
+    </p>
+    <p>&copy; {year} {site.legalName}. Všechna práva vyhrazena.</p>
+  </div>
+</footer>

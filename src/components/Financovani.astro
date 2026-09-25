@@ -1,0 +1,76 @@
+---
+import { packages, financingOptions } from '../data/balicky';
+import Icon from './Icon.astro';
+---
+
+<section id="financovani" class="py-16 sm:py-24">
+  <div class="container-page">
+    <div class="max-w-2xl">
+      <p class="eyebrow">Financování a balíčky</p>
+      <h2 class="mt-3 font-display text-3xl font-800 sm:text-4xl">Jak si vybrat rozsah spolupráce</h2>
+    </div>
+
+    <div class="mt-10 grid gap-4 sm:grid-cols-2">
+      {financingOptions.map((f) => (
+        <div class="rounded-control border border-border-subtle p-4">
+          <p class="text-sm font-bold">{f.title}</p>
+          <p class="mt-1 text-sm text-muted">{f.text}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Mobile: horizontal scroll-snap carousel (native, no JS required).
+         sm and up: reverts to a plain CSS grid — all 4 packages fit comfortably. -->
+    <div
+      class="carousel-track no-scrollbar mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth sm:grid sm:snap-none sm:gap-6 sm:overflow-visible sm:grid-cols-2 lg:grid-cols-4"
+    >
+      {packages.map((p) => (
+        <div
+          id={`balicek-${p.id}`}
+          class={`carousel-card group flex w-[85%] flex-none snap-start flex-col rounded-card p-6 transition-colors duration-200 hover:border-ink hover:bg-ink sm:w-auto sm:flex-auto ${
+            p.flagship ? 'bg-ink text-white' : 'border border-border-subtle'
+          }`}
+        >
+          <div class="flex-1">
+            <h3 class="text-lg font-bold transition-colors duration-200 group-hover:text-white">{p.name}</h3>
+            <p
+              class={`mt-3 text-sm leading-relaxed transition-colors duration-200 group-hover:text-white/80 ${
+                p.flagship ? 'text-white/85' : 'text-muted'
+              }`}
+            >
+              {p.text}
+            </p>
+          </div>
+          <a
+            href="#poptavka"
+            class={`poptat-link mt-6 btn transition-colors duration-200 group-hover:bg-brand-yellow group-hover:text-ink ${
+              p.flagship ? 'btn-accent' : 'btn-primary'
+            }`}
+            data-program={p.id}
+            data-program-name={`Balíček „${p.name}“`}
+          >
+            Poptat
+          </a>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-4 flex justify-center gap-2 sm:hidden" role="group" aria-label="Přejít na balíček">
+      {packages.map((p) => (
+        <a
+          href={`#balicek-${p.id}`}
+          class="carousel-dot h-2.5 w-2.5 rounded-full bg-border-subtle transition-colors"
+          aria-label={`Přejít na balíček ${p.name}`}
+          data-target={`balicek-${p.id}`}
+        ></a>
+      ))}
+    </div>
+
+    <p class="mt-6 flex items-center gap-2 text-sm text-muted">
+      <Icon name="clock" class="h-4 w-4 flex-none" />
+      Ceny stanovujeme na míru podle rozsahu — konkrétní nabídku dostanete po úvodní konzultaci.
+    </p>
+  </div>
+</section>
+
+<script src="/js/carousel.js" type="module" defer></script>

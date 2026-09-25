@@ -1,0 +1,79 @@
+---
+import Icon from './Icon.astro';
+import { perex, highlight, peopleBlock, layers } from '../data/prevence';
+
+const layersVisibleCount = 3;
+---
+
+<section id="prevence" class="py-16 sm:py-24">
+  <div class="container-page">
+    <div class="max-w-2xl">
+      <p class="eyebrow">Prevence</p>
+      <h2 class="mt-3 font-display text-3xl font-800 sm:text-4xl">Prevence a zabezpečení měkkých cílů</h2>
+      <p class="mt-4 text-base leading-relaxed text-muted">{perex}</p>
+    </div>
+
+    <p class="mt-6 max-w-3xl rounded-card border-l-4 border-brand-yellow bg-surface-alt p-5 text-base font-bold leading-relaxed">
+      {highlight}
+    </p>
+
+    <div class="mt-10 max-w-3xl rounded-card border border-border-subtle p-6 sm:p-8">
+      <h3 class="text-lg font-bold">{peopleBlock.title}</h3>
+      <p class="mt-2 text-sm leading-relaxed text-muted">{peopleBlock.text}</p>
+      <ul class="mt-4 flex flex-col gap-2">
+        {peopleBlock.bullets.map((b) => (
+          <li class="flex items-start gap-2 text-sm">
+            <Icon name="check" class="mt-0.5 h-4 w-4 flex-none text-brand-blue" />
+            {b}
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="expand-wrap mt-12">
+      <p class="text-sm font-bold uppercase tracking-wide text-muted">
+        Vrstvy zabezpečení, které se vzájemně doplňují
+      </p>
+
+      <div class="mt-4 flex flex-col gap-3">
+        {layers.map((layer, i) => (
+          <details class={`group rounded-card border border-border-subtle bg-white p-5 ${i >= layersVisibleCount ? 'expand-extra' : ''}`}>
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
+              <span class="flex items-center gap-3">
+                <span class="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-brand-yellow">
+                  <Icon name={layer.icon as any} class="h-5 w-5" />
+                </span>
+                <span>
+                  <h3 class="font-bold">{layer.title}</h3>
+                  <span class="block text-sm font-normal text-muted">{layer.summary}</span>
+                </span>
+              </span>
+              <Icon name="chevron-down" class="h-5 w-5 flex-none transition-transform group-open:rotate-180" />
+            </summary>
+            <ul class="mt-4 flex flex-col gap-2 pl-[3.25rem] text-sm">
+              {layer.bullets.map((b) => (
+                <li class="flex items-start gap-2 text-muted">
+                  <Icon name="check" class="mt-0.5 h-4 w-4 flex-none text-brand-blue" />
+                  {b}
+                </li>
+              ))}
+            </ul>
+          </details>
+        ))}
+      </div>
+
+      {layers.length > layersVisibleCount && (
+        <>
+          <input type="checkbox" id="layers-toggle" class="expand-toggle sr-only" />
+          <label
+            for="layers-toggle"
+            class="mt-5 inline-flex cursor-pointer items-center gap-2 text-sm font-bold text-brand-blue underline"
+          >
+            <span class="show-more-text">Zobrazit všechny vrstvy ({layers.length})</span>
+            <span class="show-less-text">Zobrazit méně</span>
+          </label>
+        </>
+      )}
+    </div>
+  </div>
+</section>

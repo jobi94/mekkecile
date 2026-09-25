@@ -1,0 +1,46 @@
+---
+import Icon from './Icon.astro';
+import NetworkGraphic from './NetworkGraphic.astro';
+
+const proofPoints = [
+  { icon: 'shield', text: 'Nácviky bez přítomnosti žáků' },
+  { icon: 'building', text: 'Program na míru vaší budově' },
+  { icon: 'key', text: 'Důvěrnost postupů' },
+] as const;
+---
+
+<section id="uvod" class="relative overflow-hidden bg-brand-yellow">
+  <div class="pointer-events-none absolute -right-10 -top-64 hidden w-1/2 max-w-3xl opacity-90 sm:block">
+    <NetworkGraphic class="h-auto w-full" variant="yellow" />
+  </div>
+
+  <div class="container-page relative py-20 sm:py-28 lg:py-32">
+    <div class="max-w-2xl">
+      <h1 class="-mt-6 font-display text-4xl font-800 sm:text-5xl lg:text-6xl">
+        Školení ochrany měkkých cílů pro školy<br />a&nbsp;instituce
+      </h1>
+      <p class="mt-12 max-w-xl text-lg leading-relaxed text-ink-soft">
+        Připravíme váš tým na první minuty bezpečnostního incidentu – Teorie, praktický nácvik
+        i dokumentace v souladu s Minimálním standardem bezpečnosti MŠMT.
+      </p>
+
+      <div class="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
+        <a href="#poptavka" class="btn btn-primary">Poptat školení</a>
+        <a href="#postup" class="btn btn-ghost">
+          Jak to probíhá
+        </a>
+      </div>
+    </div>
+
+    <ul class="mt-16 grid gap-5 sm:grid-cols-3">
+      {proofPoints.map((p) => (
+        <li class="flex items-center gap-3 rounded-card bg-white p-5 shadow-sm">
+          <span class="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-ink text-white">
+            <Icon name={p.icon} class="h-5 w-5" />
+          </span>
+          <span class="text-sm font-semibold">{p.text}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,33 @@
+---
+import { documents } from '../data/dokumentace';
+import Icon from './Icon.astro';
+---
+
+<section id="dokumentace" class="bg-surface-alt py-16 sm:py-24">
+  <div class="container-page">
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="eyebrow">Analýza a dokumentace</p>
+      <h2 class="mt-3 font-display text-3xl font-800 sm:text-4xl">Ne jen školení — celý cyklus</h2>
+      <p class="mt-4 text-base leading-relaxed text-muted">
+        Analýza → dokumentace → školení → nácvik → vyhodnocení → aktualizace. Dokumenty
+        zpracováváme jako důvěrné a sdílíme je pouze s vedením školy.
+      </p>
+      <p class="mt-4 inline-flex items-center gap-2 rounded-control bg-white px-4 py-2.5 text-sm font-bold shadow-sm">
+        <Icon name="key" class="h-5 w-5 text-brand-blue" />
+        Neveřejné ze zásady — dokumenty nesdílíme mimo vedení školy
+      </p>
+    </div>
+
+    <div class="mx-auto mt-12 grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {documents.map((d) => (
+        <div class="flex flex-col gap-3 rounded-card border border-border-subtle bg-white p-6 text-left">
+          <span class="flex h-11 w-11 flex-none items-center justify-center rounded-full bg-brand-yellow">
+            <Icon name="document" class="h-5 w-5" />
+          </span>
+          <h3 class="text-sm font-bold">{d.title}</h3>
+          <p class="text-sm leading-relaxed text-muted">{d.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

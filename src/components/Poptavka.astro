@@ -1,0 +1,263 @@
+---
+import { site } from '../site.config';
+import { courses } from '../data/courses';
+import { kraje, institutionTypes, employeeBands } from '../data/kraje';
+import Icon from './Icon.astro';
+---
+
+<section id="poptavka" class="bg-brand-blue py-16 text-white sm:py-24">
+  <div class="container-page grid gap-12 lg:grid-cols-[1fr_1.3fr] lg:items-start">
+    <div>
+      <p class="eyebrow text-brand-yellow">Poptávka</p>
+      <h2 class="mt-3 font-display text-3xl font-800 sm:text-4xl">Nezávazná poptávka</h2>
+      <p class="mt-4 text-base leading-relaxed text-white/80">
+        Ozveme se do {site.responseTimeDays} pracovních dnů a navrhneme další postup.
+      </p>
+
+      <div class="mt-8 rounded-card bg-brand-blue border border-white/15 p-6 text-white">
+        <p class="text-xs font-bold uppercase tracking-wide text-white/80">Nebo rovnou zavolejte</p>
+        <a href={`tel:${site.phone.replace(/\s+/g, '')}`} class="mt-2 flex items-center gap-2 font-display text-2xl font-800">
+          <Icon name="phone" class="h-5 w-5 text-brand-yellow" />
+          {site.phone}
+        </a>
+        <a href={`mailto:${site.email}`} class="mt-3 block text-sm font-semibold text-white/85">{site.email}</a>
+      </div>
+
+      <p class="mt-6 flex items-start gap-2 text-sm text-white/85">
+        <Icon name="siren" class="mt-0.5 h-4 w-4 flex-none text-brand-yellow" />
+        V akutním ohrožení volejte 158 (Policie ČR) nebo 112. Konzultační linka Policie ČR pro
+        provozovatele měkkých cílů: 800 255 255.
+      </p>
+    </div>
+
+    <form
+      id="poptavka-form"
+      method="post"
+      action={site.formEndpoint}
+      class="rounded-card border border-white/15 bg-brand-blue p-6 text-white shadow-xl sm:p-8"
+      data-response-days={site.responseTimeDays}
+      novalidate
+    >
+      <div
+        id="program-selected-banner"
+        class="mb-6 hidden items-start justify-between gap-3 rounded-control border border-brand-yellow bg-brand-yellow/10 p-4"
+        role="status"
+      >
+        <div class="flex items-start gap-3">
+          <Icon name="check" class="mt-0.5 h-5 w-5 flex-none text-brand-blue" />
+          <p class="text-sm">
+            Poptávka se týká:
+            <span id="program-selected-name" class="block text-base font-bold"></span>
+          </p>
+        </div>
+        <button type="button" id="program-selected-clear" class="flex-none text-xs font-bold text-white/70 underline">
+          Zrušit výběr
+        </button>
+      </div>
+      <input type="hidden" name="vybrany_program_nazev" id="vybrany_program_nazev" value="" />
+
+      <div id="form-error-summary" class="mb-5 hidden rounded-control border border-red-300 bg-red-50 p-4 text-sm text-red-800" role="alert" tabindex="-1">
+        <p class="font-bold">Zkontrolujte prosím vyznačená pole:</p>
+        <ul id="form-error-list" class="mt-2 list-disc pl-5"></ul>
+      </div>
+
+      <div id="form-progress" class="mb-6 hidden items-center gap-2 text-xs font-bold uppercase tracking-wide text-white">
+        <span id="form-progress-label">Krok 1 ze 3</span>
+        <div class="h-1.5 flex-1 overflow-hidden rounded-full bg-white/20">
+          <div id="form-progress-bar" class="h-full w-1/3 rounded-full bg-brand-yellow transition-all"></div>
+        </div>
+      </div>
+
+      <!-- Honeypot: real users never see or fill this. Bots that fill every field trip it. -->
+      <div class="hidden" aria-hidden="true">
+        <label for="company_website">Nevyplňujte toto pole</label>
+        <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off" />
+      </div>
+      <input type="hidden" name="form_rendered_at" id="form_rendered_at" value="" />
+
+      <fieldset class="form-step" data-step="1">
+        <legend class="text-base font-bold text-brand-yellow">1. Organizace</legend>
+
+        <div class="mt-4 grid gap-4 sm:grid-cols-2">
+          <div class="sm:col-span-2">
+            <label for="typ_instituce" class="text-sm font-semibold text-brand-yellow">Typ instituce *</label>
+            <select id="typ_instituce" name="typ_instituce" required class="form-input">
+              <option value="">Vyberte…</option>
+              {institutionTypes.map((t) => <option value={t}>{t}</option>)}
+            </select>
+          </div>
+
+          <div class="sm:col-span-2">
+            <label for="nazev_organizace" class="text-sm font-semibold text-brand-yellow">Název organizace *</label>
+            <input type="text" id="nazev_organizace" name="nazev_organizace" required autocomplete="organization" class="form-input" />
+          </div>
+
+          <div>
+            <label for="kraj" class="text-sm font-semibold text-brand-yellow">Kraj *</label>
+            <select id="kraj" name="kraj" required class="form-input">
+              <option value="">Vyberte…</option>
+              {kraje.map((k) => <option value={k}>{k}</option>)}
+            </select>
+          </div>
+
+          <div>
+            <label for="pocet_zamestnancu" class="text-sm font-semibold text-brand-yellow">Počet zaměstnanců *</label>
+            <select id="pocet_zamestnancu" name="pocet_zamestnancu" required class="form-input">
+              <option value="">Vyberte…</option>
+              {employeeBands.map((b) => <option value={b}>{b}</option>)}
+            </select>
+          </div>
+
+          <div>
+            <label for="pocet_budov" class="text-sm font-semibold text-brand-yellow">Počet budov</label>
+            <input type="number" min="1" id="pocet_budov" name="pocet_budov" class="form-input" />
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-primary mt-6 step-next hover:bg-brand-yellow hover:text-ink" data-goto="2">Pokračovat</button>
+      </fieldset>
+
+      <fieldset class="form-step" data-step="2">
+        <legend class="text-base font-bold text-brand-yellow">2. O co máte zájem</legend>
+
+        <p class="mt-4 text-sm font-semibold">Programy a služby</p>
+        <div class="mt-2 grid gap-2 sm:grid-cols-2">
+          {courses.map((c) => (
+            <label class="flex items-start gap-2 text-sm">
+              <input type="checkbox" name="programy" value={c.id} class="program-checkbox mt-0.5" />
+              {c.letter} — {c.name}
+            </label>
+          ))}
+          <label class="flex items-start gap-2 text-sm">
+            <input type="checkbox" name="programy" value="analyza" class="program-checkbox mt-0.5" />
+            Bezpečnostní analýza
+          </label>
+          <label class="flex items-start gap-2 text-sm">
+            <input type="checkbox" name="programy" value="bezpecnostni-plan" class="program-checkbox mt-0.5" />
+            Bezpečnostní plán
+          </label>
+          <label class="flex items-start gap-2 text-sm">
+            <input type="checkbox" name="programy" value="koordinacni-plan" class="program-checkbox mt-0.5" />
+            Koordinační plán a karta pro IZS
+          </label>
+          <label class="flex items-start gap-2 text-sm">
+            <input type="checkbox" name="programy" value="rocni-servis" class="program-checkbox mt-0.5" />
+            Roční servis
+          </label>
+        </div>
+
+        <div class="mt-5 grid gap-4 sm:grid-cols-2">
+          <div>
+            <label for="preferovany_termin" class="text-sm font-semibold text-brand-yellow">Preferovaný termín</label>
+            <input type="month" id="preferovany_termin" name="preferovany_termin" class="form-input" />
+          </div>
+          <div class="flex items-end pb-2">
+            <label class="flex items-center gap-2 text-sm">
+              <input type="checkbox" name="pripravny_tyden" value="ano" />
+              Vyhovuje přípravný týden v srpnu
+            </label>
+          </div>
+        </div>
+
+        <fieldset class="mt-5">
+          <legend class="text-sm font-semibold">Financování</legend>
+          <div class="mt-2 grid gap-2 sm:grid-cols-2">
+            <label class="flex items-center gap-2 text-sm"><input type="radio" name="financovani" value="vlastni-rozpocet" /> Vlastní rozpočet</label>
+            <label class="flex items-center gap-2 text-sm"><input type="radio" name="financovani" value="zrizovatel" /> Zřizovatel</label>
+            <label class="flex items-center gap-2 text-sm"><input type="radio" name="financovani" value="op-jak" /> Šablony OP JAK</label>
+            <label class="flex items-center gap-2 text-sm"><input type="radio" name="financovani" value="nevim" checked /> Zatím nevím</label>
+          </div>
+        </fieldset>
+
+        <div class="mt-6 flex gap-3">
+          <button type="button" class="btn btn-ghost step-back border-white text-white hover:border-brand-yellow hover:bg-brand-yellow hover:text-ink" data-goto="1">Zpět</button>
+          <button type="button" class="btn btn-primary step-next hover:bg-brand-yellow hover:text-ink" data-goto="3">Pokračovat</button>
+        </div>
+      </fieldset>
+
+      <fieldset class="form-step" data-step="3">
+        <legend class="text-base font-bold text-brand-yellow">3. Kontakt</legend>
+
+        <div class="mt-4 grid gap-4 sm:grid-cols-2">
+          <div>
+            <label for="jmeno" class="text-sm font-semibold text-brand-yellow">Jméno a příjmení *</label>
+            <input type="text" id="jmeno" name="jmeno" required autocomplete="name" class="form-input" />
+          </div>
+          <div>
+            <label for="funkce" class="text-sm font-semibold text-brand-yellow">Funkce</label>
+            <input type="text" id="funkce" name="funkce" autocomplete="organization-title" class="form-input" />
+          </div>
+          <div>
+            <label for="email" class="text-sm font-semibold text-brand-yellow">E-mail *</label>
+            <input type="email" id="email" name="email" required autocomplete="email" class="form-input" />
+          </div>
+          <div>
+            <label for="telefon" class="text-sm font-semibold text-brand-yellow">Telefon</label>
+            <input type="tel" id="telefon" name="telefon" autocomplete="tel" class="form-input" />
+          </div>
+          <div class="sm:col-span-2">
+            <label for="zprava" class="text-sm font-semibold text-brand-yellow">Zpráva</label>
+            <textarea id="zprava" name="zprava" rows="4" class="form-input"></textarea>
+          </div>
+        </div>
+
+        <p class="mt-3 text-xs text-white/90">
+          Do formuláře prosím nepište citlivé informace o zabezpečení vaší budovy. Probereme je osobně.
+        </p>
+
+        <p class="mt-4 text-xs text-white/90">
+          Odesláním berete na vědomí
+          <a href="/zasady-ochrany-osobnich-udaju" class="font-semibold text-brand-yellow underline">zásady zpracování osobních údajů</a>.
+        </p>
+
+        <label class="mt-3 flex items-start gap-2 text-xs text-white/90">
+          <input type="checkbox" name="souhlas_marketing" value="ano" class="mt-0.5" />
+          Chci dostávat příležitostné novinky o školeních e-mailem (nepovinné).
+        </label>
+
+        <div class="mt-6 flex flex-wrap gap-3">
+          <button type="button" class="btn btn-ghost step-back border-white text-white hover:border-brand-yellow hover:bg-brand-yellow hover:text-ink" data-goto="2">Zpět</button>
+          <button type="submit" class="btn btn-accent">Odeslat poptávku</button>
+        </div>
+      </fieldset>
+
+      <p id="form-success" class="hidden rounded-control bg-green-50 p-4 text-sm font-semibold text-green-800" role="status"></p>
+      <p id="form-fail" class="mt-3 hidden rounded-control bg-red-50 p-4 text-sm font-semibold text-red-800" role="alert"></p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .form-input {
+    margin-top: 0.375rem;
+    width: 100%;
+    background: var(--color-brand-blue);
+    color: var(--color-surface);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: var(--radius-control);
+    padding: 0.65rem 0.85rem;
+    font-size: 0.95rem;
+    color-scheme: dark;
+  }
+  .form-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .form-input:focus-visible {
+    border-color: var(--color-brand-yellow);
+  }
+  fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+  fieldset fieldset {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 1rem;
+  }
+  input[type='checkbox'],
+  input[type='radio'] {
+    accent-color: var(--color-brand-blue);
+  }
+</style>
+
+<script src="/js/poptavka.js" type="module" defer></script>
