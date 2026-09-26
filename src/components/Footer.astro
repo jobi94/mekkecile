@@ -37,10 +37,10 @@ const year = new Date().getFullYear();
     <div>
       <p class="text-sm font-bold uppercase tracking-wide text-white/60">Právní informace</p>
       <ul class="mt-3 flex flex-col gap-2 text-sm">
-        <li><a href="/zasady-ochrany-osobnich-udaju">Zásady zpracování osobních údajů</a></li>
-        <li><a href="/cookies">Cookies</a></li>
-        <li><a href="/prohlaseni-o-pristupnosti">Prohlášení o přístupnosti</a></li>
-        <li><a href="/obchodni-podminky">Obchodní podmínky</a></li>
+        <li><a href={`${import.meta.env.BASE_URL}zasady-ochrany-osobnich-udaju`}>Zásady zpracování osobních údajů</a></li>
+        <li><a href={`${import.meta.env.BASE_URL}cookies`}>Cookies</a></li>
+        <li><a href={`${import.meta.env.BASE_URL}prohlaseni-o-pristupnosti`}>Prohlášení o přístupnosti</a></li>
+        <li><a href={`${import.meta.env.BASE_URL}obchodni-podminky`}>Obchodní podmínky</a></li>
       </ul>
     </div>
   </div>

@@ -20,8 +20,8 @@ import { site } from '../site.config';
       Stránka, kterou hledáte, neexistuje nebo byla přesunuta.
     </p>
     <div class="mt-8 flex flex-wrap justify-center gap-3">
-      <a href="/#skoleni" class="btn btn-primary">Zobrazit programy</a>
-      <a href="/#poptavka" class="btn btn-ghost">Odeslat poptávku</a>
+      <a href={`${import.meta.env.BASE_URL}#skoleni`} class="btn btn-primary">Zobrazit programy</a>
+      <a href={`${import.meta.env.BASE_URL}#poptavka`} class="btn btn-ghost">Odeslat poptávku</a>
     </div>
   </main>
   <Footer />

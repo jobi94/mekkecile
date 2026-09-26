@@ -207,7 +207,7 @@ import Icon from './Icon.astro';
 
         <p class="mt-4 text-xs text-white/90">
           Odesláním berete na vědomí
-          <a href="/zasady-ochrany-osobnich-udaju" class="font-semibold text-brand-yellow underline">zásady zpracování osobních údajů</a>.
+          <a href={`${import.meta.env.BASE_URL}zasady-ochrany-osobnich-udaju`} class="font-semibold text-brand-yellow underline">zásady zpracování osobních údajů</a>.
         </p>
 
         <label class="mt-3 flex items-start gap-2 text-xs text-white/90">
@@ -260,4 +260,4 @@ import Icon from './Icon.astro';
   }
 </style>
 
-<script src="/js/poptavka.js" type="module" defer></script>
+<script src={`${import.meta.env.BASE_URL}js/poptavka.js`} type="module" defer></script>
